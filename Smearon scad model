@@ -1,16 +1,42 @@
 //Smearon 3D printer
 
-//staver();
+staver();
 heiser();
-//sideplater();
+sideplater();
 framplate();
 //bakplate();
 //golv();
 translate([0,-223,0])rod();
-peis();
-
+translate([215,185,0])rotate([0,0,90])rod();
+translate([-215,185,0])rotate([0,0,-90])rod();
+//peis();
+module lager(){
+    color("silver")difference(){cylinder(8,11,11,center=true);
+    cylinder(9,3.5,3.5,center=true);
+    }
+    }
 module peis(){
-    //her skal vi ha noe som sklir i sporet, samt festes med to muttere på stanga, og med to kulelager ruller på sidene til gardinheisen. 
+    //Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting
+    for(i=[-1:2:1]){
+   translate([i*21,-14,400])rotate([90,0,0])lager(); 
+        color("cyan")difference(){union(){
+   translate([i*21,-14,400])rotate([90,0,0])cylinder(9,3.2,3.2,center=true);
+       translate([i*21,-14+7,400])rotate([90,0,0])sphere(5,$fn=12);
+         translate([0,24,446])rotate([00,0,0])sphere(5,$fn=12);   
+        translate([i*21/2,(-14+7)/2,410])rotate([130,0,80*i])cylinder(30,6,4,center=true,$fn=6);     
+        } 
+            translate([i*21,-14,400])rotate([90,0,0])cylinder(15,2,2,center=true); 
+        }
+        color("red")translate([0,0,420+i*10])rotate([0,0,0])cylinder(7,7,7,center=true,$fn=6);
+    }
+    color("cyan")translate([0,-15,420])cube([15,5,25],center=true);    
+    color("cyan")translate([0,-10,420])cube([10,15,25],center=true);
+    difference(){
+    color("cyan")translate([0,0,420])cylinder(25,11,11,center=true,$fn=6);
+        translate([0,0,420])cylinder(27,4,4,center=true,$fn=14);
+    }
+    
+        translate([0,14,435])rotate([-40,0,0])cylinder(30,6,4,center=true,$fn=6); 
 }
 
 module stangfeste(){
@@ -53,7 +79,8 @@ motor();
     color("pink")translate([0,0,65])cylinder(440,2.5,2.5,center=false);    
     color("yellow")translate([0,0,42])cylinder(30,9,9,center=false);
     motorfeste();
-    stangfeste();
+    //stangfeste();
+    peis();
 }
 module motor(){
     difference(){
@@ -107,7 +134,7 @@ translate([240*j,0,540])rotate([90,0,-10])cylinder(1000,30,30,center=true);
 }
 module heiser(){
 color("beige")for(i=[-1:2:1]){
-translate([i*236,200,40])rotate([0,0,-90*i])linear_extrude(460)gardin();
+translate([i*236,185,40])rotate([0,0,-90*i])linear_extrude(460)gardin();
     }
 color("beige")translate([0,-243,40])rotate([0,0,180])linear_extrude(460)gardin();
 }
@@ -134,3 +161,4 @@ module gardin(){
     polygon([[0,0],[10,0],[10,-10],[6,-10],[6,-8],[8,-8],[8,-2],[-8,-2],[-8,-8],[-6,-8],[-6,-10],[-10,-10],[-10,0]]);
    
 }
+
