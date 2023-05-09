@@ -1,15 +1,212 @@
-//Smearon 3D printer
+//Smearon 3 printer
 
-staver();
-heiser();
-sideplater();
-framplate();
+margin=0.2;
+//staver();
+//heiser();
+//sideplater();
+//framplate();
 //bakplate();
 //golv();
-translate([0,-223,0])rod();
-translate([215,185,0])rotate([0,0,90])rod();
+//translate([0,-223,0])rod();
+//translate([215,185,0])rotate([0,0,90])rod();
 translate([-215,185,0])rotate([0,0,-90])rod();
-//peis();
+//balkong();
+//yskinner();
+//xskinne();
+xvogn();
+yvogn();
+//nema14();
+//stangfeste();
+//motorfeste();
+//lediggang();
+//ledigsneller();
+//reimhorn();
+//bakhorn();
+//synkeskrue();6478+q   +452**_jk.l
+//kjernemotor();
+//igardin();
+//smear();
+module smear(i){
+   cylinder(8,6,6,center=true);
+   cylinder(8,7,4,center=true);
+    rotate([0,30,i])cylinder(30,0.3,3,center=true);}
+module bakhorn (){
+    for(i=[-1:2:1]){ 
+       for(j=[-1:2:1]){  
+    difference(){
+        union(){
+        translate([j*221,231.5-2.5,567+4*j])cube([30,30,16],center=true);
+        color("red")translate([i*233.5,210,567])cube([5,20,24],center=true);    
+    color("red")translate([i*198,241.5,567])cube([20,5,24],center=true);
+        }
+    
+    //}
+    
+     
+         union(){ 
+        color("yellow")translate([220*i,-227,5*j+567])difference(){
+          cylinder(8,11/2,11/2,center=true);
+          cylinder(9,4/2,4/2,center=true);
+      }
+      
+      color("beige")translate([220*i,-227,5*j+567])cylinder(20,4/2,4/2,center=true,$fn=20);
+      translate([j*229,207,567+5*j])cube([4,50,8],center=true);
+      translate([j*220,207,567+5*j])cube([5,50,8],center=true);
+    translate([j*209,227+4,567+5*j])cube([40,15,8],center=true);
+        ledighorn();        
+    
+  
+     color("cyan")translate([i*198,238.5,567+5])rotate([-90,0,0])synkeskrue();
+     color("cyan")translate([i*198,238.5,567-5])rotate([-90,0,0])synkeskrue();
+    color("cyan")translate([i*230.5,210,567+5])rotate([0,90*i,0])synkeskrue();
+    color("cyan")translate([i*230.5,210,567-5])rotate([0,90*i,0])synkeskrue();
+  }
+  color("red")translate([i*236,231.5+6,567])cube([5,13,46],center=true);
+    }
+    //color("red")translate([i*236,231.5+6,567])cube([5,13,46],center=true);
+  //ledighorn();
+        //translate([-8*i,227*2-5,0])ledigsneller();
+}
+    }
+}
+module synkeskrue(){
+    cylinder(20,2,2,center=false,$fn=20);
+    cylinder(4,5,2,center=false);
+}
+module kjernemotor(){
+    for(i=[-1:2:1]){ 
+    
+    translate([148*i,227-4,521+i*5])motor();
+    translate([148*i,227-4,521+i*5])rotate([0,0,180])motorfeste();
+    }
+}
+module reimhorn(){
+     for(i=[-1:2:1]){  
+    difference(){
+        union(){
+        translate([i*221,-231.5,567])cube([30,25,24],center=true);
+        color("red")translate([i*233.5,-210,567])cube([5,20,24],center=true);    
+    color("red")translate([i*198,-241.5,567])cube([20,5,24],center=true);
+        }
+    translate([i*229,-207,567+5])cube([4,50,8],center=true);
+    translate([i*229,-207,567-5])cube([4,50,8],center=true);
+    
+    translate([i*209,-227,567+5])cube([40,13,8],center=true);
+    translate([i*209,-227,567-5])cube([40,13,8],center=true);
+        ledigsneller();
+        
+    color("red")translate([i*236,-231.5-5,567])cube([5,15,26],center=true);
+    
+     color("cyan")translate([i*198,-238.5,567+5])rotate([90,0,0])synkeskrue();
+     color("cyan")translate([i*198,-238.5,567-5])rotate([90,0,0])synkeskrue();
+    color("cyan")translate([i*230.5,-210,567+5])rotate([0,90*i,0])synkeskrue();
+    color("cyan")translate([i*230.5,-210,567-5])rotate([0,90*i,0])synkeskrue();
+    }
+    }
+}
+module ledigsneller(){
+  for(i=[-1:2:1]){      
+  for(j=[-1:2:1]){         
+        color("yellow")translate([220*i,-227,-5*j+567])difference(){
+          cylinder(8,11/2,11/2,center=true);
+          cylinder(9,4/2,4/2,center=true);
+      }
+      color("beige")translate([220*i,-227,5*j+567])cylinder(18,4/2,4/2,center=true,$fn=20);
+      }  
+  }  
+}
+module ledighorn(){
+    translate([0,227+2,567*2])rotate([180,0,0])
+  for(i=[-1:2:1]){      
+  for(j=[-1:2:1]){         
+  for(k=[-1:2:1]){
+      color("yellow")translate([j*5+220*k,-5*j*k,-k*5+567])difference(){
+          cylinder(8,11/2,11/2,center=true);
+          cylinder(9,4/2,4/2,center=true);
+      }
+      color("beige")translate([j*5+220*k,-5*j*k,i*5+567])cylinder(18,4/2,4/2,center=true,$fn=20);
+      } 
+  } 
+  }
+}
+module lediggang(){
+  for(i=[-1:2:1]){      
+  for(j=[-1:2:1]){         
+  for(k=[-1:2:1]){
+      color("yellow")translate([j*5+220*k,-5*j*k,-j*5+567])difference(){
+          cylinder(8,11/2,11/2,center=true);
+          cylinder(9,4/2,4/2,center=true);
+      }
+      color("beige")translate([j*5+220*k,-5*j*k,i*5+567])cylinder(18,4/2,4/2,center=true,$fn=20);
+      } 
+  } 
+  }
+}
+module nema14(){
+    //translate([0,0,545])import("/home/sveinar/STL/files/Nema14-33_Horizontal_Clamp.stl");
+    translate([0,11,552])rotate([90,45,0])import("/home/sveinar/STL/files/Foststuder_H4.stl");
+    //translate([0,0,545])import("/home/sveinar/STL/files/Foststuder_H4_-_Mirrored.stl");
+ //jeg tenker dobbel nema14 bowden lagt inn på skrå med peltier på heatbreaken og hotend som motvekt. Bremserør og domenut som vanlig  
+}
+module xvogn()color("yellow"){
+    difference(){
+        union(){
+    difference(){
+    translate([0,0,585])cube([30,24,20],center=true);  
+    translate([0,0,585])cube([31,16,11],center=true);
+        translate([0,13,585])rotate([-9,0,0])cylinder(30,3.5,3.5,center=true);
+            }
+    translate([-12,4,570])cube([6,15,12],center=true);    
+    translate([12,4,572])cube([6,15,9],center=true);  
+difference(){    
+    translate([0,4,575])cube([30,15,3],center=true);
+      translate([0,13,585])rotate([-9,0,0])cylinder(30,3.5,3.5,center=true);
+}
+    translate([25/2,0,585-5])rotate([-90,0,90])linear_extrude(25)igardin();
+translate([0,0,595])cylinder(7,8,6,center=true); 
+}
+  translate([0,0,595])smear(90);
+translate([0,0,595])smear(-90);
+}
+}
+module xskinne(){
+     rotate([0,0,90])translate([(0),250-30,600-20])
+      rotate([-90,0,180])linear_extrude(440)gardin();
+}
+module yvogn()color("pink"){
+    for(i=[-1:2:1]){       
+        difference(){
+            union(){
+    translate([i*216,0,585])cube([20,30,18],center=true);
+    translate([i*237,15,589])rotate([90,90*i,0])linear_extrude(30)igardin();
+    translate([i*219,0,595])cylinder(7,8,6,center=true); 
+    translate([i*220,0,567])cube([28,30,27],center=true);  
+            }
+            minkowski(){
+    xskinne();
+             sphere(margin/2);   
+            }
+    translate([i*219,0,595])smear(180);
+    translate([i*224,0,593])rotate([0,30,-25])cylinder(55,0.3,2,center=true); 
+    translate([i*229,0,567+5])cube([4,50,8],center=true);
+    translate([i*229,0,567-5])cube([4,50,8],center=true);
+    translate([i*219,0,567+5])cube([4,50,8],center=true);        
+    translate([i*219,0,567-5])cube([4,50,8],center=true);
+    translate([i*209,0,567+5])cube([40,12,8],center=true);
+    translate([i*209,0,567-5])cube([40,12,8],center=true);
+        lediggang();
+    }
+}
+}
+module yskinner(){
+  for (i=[-1:2:1]){
+    rotate([0,0,90+90*i])translate([(250-13),250-20,600-11])
+      rotate([90,90,0])linear_extrude(460)gardin();
+  }  
+}
+module balkong(){
+    color("black")translate([0,0,453])cube([420,430,8],center=true);
+}
 module lager(){
     color("silver")difference(){cylinder(8,11,11,center=true);
     cylinder(9,3.5,3.5,center=true);
@@ -17,26 +214,27 @@ module lager(){
     }
 module peis(){
     //Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting
-    for(i=[-1:2:1]){
-   translate([i*21,-14,400])rotate([90,0,0])lager(); 
+        for(i=[-1:2:1]){
+   translate([i*18.5,-14,400])rotate([90,0,0])lager(); 
         color("cyan")difference(){union(){
-   translate([i*21,-14,400])rotate([90,0,0])cylinder(9,3.2,3.2,center=true);
-       translate([i*21,-14+7,400])rotate([90,0,0])sphere(5,$fn=12);
+   translate([i*18.5,-14,400])rotate([90,0,0])cylinder(9,3.2,3.2,center=true);
+       translate([i*18.5,-14+7,400])rotate([90,0,0])sphere(5,$fn=12);
          translate([0,24,446])rotate([00,0,0])sphere(5,$fn=12);   
-        translate([i*21/2,(-14+7)/2,410])rotate([130,0,80*i])cylinder(30,6,4,center=true,$fn=6);     
-        } 
-            translate([i*21,-14,400])rotate([90,0,0])cylinder(15,2,2,center=true); 
-        }
-        color("red")translate([0,0,420+i*10])rotate([0,0,0])cylinder(7,7,7,center=true,$fn=6);
-    }
-    color("cyan")translate([0,-15,420])cube([15,5,25],center=true);    
-    color("cyan")translate([0,-10,420])cube([10,15,25],center=true);
+        translate([i*21/2,(-14+7)/2,410])rotate([140,0,80*i])cylinder(30,6,4,center=true,$fn=6);
+       translate([13,-4,420+11])cylinder(12,8,8,center=true,$fn=16);
+       color("cyan")translate([0,-21,407.5])rotate([0,0,180])linear_extrude(25)igardin();
     difference(){
     color("cyan")translate([0,0,420])cylinder(25,11,11,center=true,$fn=6);
         translate([0,0,420])cylinder(27,4,4,center=true,$fn=14);
-    }
-    
-        translate([0,14,435])rotate([-40,0,0])cylinder(30,6,4,center=true,$fn=6); 
+    }     
+        } 
+            translate([i*18.5,-14,400])rotate([90,0,0])cylinder(15,2,2,center=true);
+       translate([13,-4,420+15])smear(0);
+        translate([8,-3,420+15])rotate([0,45,45])cylinder(55,0.3,2,center=true); 
+        }
+        color("red")translate([0,0,420+i*10])rotate([0,0,0])cylinder(7,7,7,center=true,$fn=6);
+        }
+            translate([0,14,435])rotate([-40,0,0])cylinder(30,6,4,center=true,$fn=6); 
 }
 
 module stangfeste(){
@@ -104,8 +302,8 @@ module bakplate(){
     difference(){   
 color("chocolate")translate([0,250,300])cube([490,12,600],center=true);
 translate([0,-20,250])rotate([90,0,0])cylinder(1000,190,190,center=true);
-translate([0,250,540])rotate([90,0,80])cylinder(1000,30,30,center=true);
-translate([0,250,540])rotate([90,0,-80])cylinder(1000,30,30,center=true); 
+translate([0,250,540])rotate([90,0,70])cylinder(1000,30,30,center=true);
+translate([0,250,540])rotate([90,0,-70])cylinder(1000,30,30,center=true); 
 }
 }
 module framplate(){
@@ -127,8 +325,8 @@ color("chocolate")translate([i*242,0,300])cube([12,476,600],center=true);
         }
 translate([0,-20,250])rotate([0,90,0])cylinder(1000,190,190,center=true);
 for(j=[-1:2:1]){
- translate([240*j,0,540])rotate([90,0,10])cylinder(1000,30,30,center=true);
-translate([240*j,0,540])rotate([90,0,-10])cylinder(1000,30,30,center=true);
+ translate([240*j,0,525])rotate([90,0,10])cylinder(1000,30,30,center=true);
+translate([240*j,0,525])rotate([90,0,-10])cylinder(1000,30,30,center=true);
 }
 }
 }
@@ -158,7 +356,20 @@ polygon(points=[[0,-3/2],[18
 /2,-3/2],[18/2,-7/2],[21/2,-7/2], [21/2,-21/2],[11/2,-21/2],[11/2,-25/2],[20/2,-25/2],[22.5/2,-27/2],[25/2,-25/2],[50/2,-25/2],[52/2,-22/2],[50.5/2,-20/2],[50.5/2,-10/2],[46.5/2,-10/2],[46.5/2,-21/2],[33/2,-21/2],[33/2,-18/2],[28/2,-18/2],[28/2,0],[-0.25,0]]);
 }
 module gardin(){
-    polygon([[0,0],[10,0],[10,-10],[6,-10],[6,-8],[8,-8],[8,-2],[-8,-2],[-8,-8],[-6,-8],[-6,-10],[-10,-10],[-10,0]]);
-   
+    difference(){
+    polygon([[0,0],[7.5,0],[7.5,-10],[3.1,-10],[3.1,-8.6],[5.6,-8.6],[5.6,-5],[3.5,-5],[3.5,-1.4],[-3.5,-1.4],[-3.5,-5],[-5.6,-5],[-5.6,-8.6],[-3.1,-8.6],[-3.1,-10],[-7.5,-10],[-7.5,0]]);   
+        for(i=[-1:2:1]){
+            translate([12.7/2*i,-2.5])circle(1.28,$fn=12);
+            translate([0,-6.3])circle(4.2,$fn=12);
+        }
+    }
 }
-
+module igardin(){    //2D
+    difference(){
+        polygon([[4,-1.2],[4,-5],[7,-5],[7.7,-15],[-7.7,-15],[-7,-5],[-4,-5],[-4,-1.2]]);
+        minkowski(){
+        gardin();
+            circle(margin,$fn=6);
+        }
+    }
+}
