@@ -1,6 +1,7 @@
 //Smearon 3 printer
 //marking the parts
 //Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting #peis
+//An idea for standing out is to print from casette tapes instead of sd cards. With Amtor encoding. That would be awesome indeed.  
 margin=0.3;
 //staver();
 //heiser();
