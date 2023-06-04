@@ -1,15 +1,16 @@
 //Smearon 3 printer
 //marking the parts
 //Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting #peis
-//An idea for standing out is to print from casette tapes instead of sd cards. With Amtor encoding. That would be awesome indeed.  
+//An idea for standing out is to print from casette tapes instead of sd cards. With Amtor encoding. That would be awesome indeed. 
 margin=0.3;
+beltroom=9;
 //staver();
-//heiser();
+heiser();
 //sideplater();
 //framplate();
 //bakplate();
 //golv();
-//translate([0,-223,0])rod();
+translate([0,-223,0])rod();
 //translate([215,185,0])rotate([0,0,90])rod();
 //translate([-215,185,0])rotate([0,0,-90])rod();
 //balkong();
@@ -23,12 +24,45 @@ margin=0.3;
 //lediggang();
 //ledigsneller();
 //reimhorn();
-bakhorn();
+//bakhorn();
 //ledighorn();
 //synkeskrue();6478+q   +452**_jk.l
 //kjernemotor();
 //igardin();
 //smear();
+//leding();
+
+//translate([0,0,568])rotate([0,180,0])beltholder();
+module beltholder(){
+    difference(){
+    union(){
+translate([0,-6,-19])import("//home/sveinar/STL/Belt_Holder.stl");
+translate([0,-3,-7])cube([34,10,6],center=true);
+    }
+translate([0,0,-60])cube([100,100,100],center=true);
+    
+translate([0,0,53.5])cube([100,100,100],center=true);
+  for(i=[-3:2:3]){
+translate([i*4,-7.5,-7])rotate([90,0,0])cylinder(2,2,2,center=true,$fn=6);
+    translate([i*4,-8,-7])rotate([90,0,0])cylinder(30,1,1,center=true,$fn=12);
+}  
+}
+
+}
+module leding(){
+    for (i=[-1:2:1]){
+        //for (j=[-1:2:1]){
+    difference(){
+        union(){
+          cylinder(6.6,8/2,8/2,center=true,$fn=30);
+        translate([0,0,i*3.75])rotate([90+i*90,0,0])cylinder(0.5,5/2,10/2,center=true,$fn=30);
+            translate([0,0,i*3.4])rotate([90-i*90,0,0])cylinder(0.25,8/2,10/2,center=true,$fn=30);
+        }
+          cylinder(9,4/2,4/2,center=true,$fn=30);
+      }
+ // }
+}
+}
 module smear(i){
    cylinder(8,6,6,center=true);
    cylinder(8,7,4,center=true);
@@ -48,9 +82,9 @@ module bakhorn (){
           cylinder(9,4/2,4/2,center=true);
       }      
       color("beige")translate([220*i,-227,5*j+567])cylinder(20,4/2,4/2,center=true,$fn=20);
-      translate([j*229,207,567+5*j])cube([4,50,8],center=true);
-      translate([j*220,207,567+5*j])cube([5,50,8],center=true);
-    translate([j*209,227+4,567+5*j])cube([40,15,8],center=true);
+      translate([j*229,207,567+5*j])cube([4,50,beltroom],center=true);
+      translate([j*220,207,567+5*j])cube([5,50,beltroom],center=true);
+    translate([j*209,227+4,567+5*j])cube([40,15,beltroom],center=true);
         ledighorn();  
      color("cyan")translate([i*198,238.5,567+5])rotate([-90,0,0])synkeskrue();
      color("cyan")translate([i*198,238.5,567-5])rotate([-90,0,0])synkeskrue();
@@ -83,11 +117,11 @@ module reimhorn(){
         color("red")translate([i*233.5,-210,567])cube([5,20,24],center=true);    
     color("red")translate([i*198,-241.5,567])cube([20,5,24],center=true);
         }
-    translate([i*229,-207,567+5])cube([4,50,8],center=true);
-    translate([i*229,-207,567-5])cube([4,50,8],center=true);
+    translate([i*229,-207,567+5])cube([4,50,beltroom],center=true);
+    translate([i*229,-207,567-5])cube([4,50,beltroom],center=true);
     
-    translate([i*209,-227,567+5])cube([40,13,8],center=true);
-    translate([i*209,-227,567-5])cube([40,13,8],center=true);
+    translate([i*209,-227,567+5])cube([40,13,beltroom],center=true);
+    translate([i*209,-227,567-5])cube([40,13,beltroom],center=true);
         ledigsneller();
         
     color("red")translate([i*236,-231.5-5,567])cube([5,15,26],center=true);
@@ -126,13 +160,13 @@ module ledighorn(){
      color("cyan")translate([i*230.5,21*j,567+5])rotate([0,90*i,0])synkeskrue();
     color("cyan")translate([i*230.5,21*j,567-5])rotate([0,90*i,0])synkeskrue();
     
-    translate([j*229,0,567+-5*j])cube([4,50,8],center=true);
-      translate([j*220,0,567+-5*j])cube([5,50,8],center=true);
-    translate([j*217,-21,567+-5*j])rotate([0,0,75*j])cube([40,16.3,8],center=true);
+    translate([j*229,0,567+-5*j])cube([4,50,beltroom],center=true);
+      translate([j*220,0,567+-5*j])cube([5,50,beltroom],center=true);
+    translate([j*217,-21,567+-5*j])rotate([0,0,75*j])cube([40,16.3,beltroom],center=true);
     
       translate([j*5+k*220,-5*j,-k*5+567])//difference(){
           //ledigsneller();
-        cylinder(8,11/2,11/2,center=true);
+        cylinder(beltroom,11/2,11/2,center=true);
           //cylinder(9,4/2,4/2,center=true);
       //}
       color("beige")translate([j*5+220*k,-5*j,i*5+567])cylinder(78,4/2,4/2,center=true,$fn=20);
@@ -147,38 +181,62 @@ module lediggang(){
   for(j=[-1:2:1]){         
   for(k=[-1:2:1]){
       color("yellow")translate([j*5+220*k,-5*j*k,-j*5+567])difference(){
-          cylinder(8,11/2,11/2,center=true);
-          cylinder(9,4/2,4/2,center=true);
+          cylinder(beltroom,11/2,11/2,center=true);
+          cylinder(beltroom,4/2,4/2,center=true);
       }
       color("beige")translate([j*5+220*k,-5*j*k,i*5+567])cylinder(18,4/2,4/2,center=true,$fn=20);
       } 
   } 
   }
 }
+
 module nema14(){
-    //translate([0,0,545])import("/home/sveinar/STL/files/Nema14-33_Horizontal_Clamp.stl");
-    translate([0,11,552])rotate([90,45,0])import("/home/sveinar/STL/files/Foststuder_H4.stl");
-    //translate([0,0,545])import("/home/sveinar/STL/files/Foststuder_H4_-_Mirrored.stl");
+   
+    translate([-18.5,40,545])rotate([0,0,90]){
+        
+         difference(){
+        color("beige")rotate([0,0,180])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/Body_40mm.stl");
+    translate([+3,-31.3,20.9])rotate([0,90,0])cylinder(126,1.6,1.6,center=true,$fn=14);
+    }    //color("yellow")translate([+20,45,545])rotate([0,0,180])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/Body_50mm.stl");
+    //color("blue")translate([20,0,0])rotate([0,0,180])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/cone.stl");
+    color("green")translate([-3,0,42])rotate([-70,0,180])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/idler.stl");
+    color("brown")translate([+1,-53,55])rotate([0,90,0])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/large_gear.stl");
+    color("chocolate")translate([-5,-65,25])rotate([0,90,0])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/small_gear.stl");
+    color("cyan")translate([-23,-40,40])rotate([0,0,00])import("/home/sveinar/STL/Nema14_Geared_Mini_extruder_153356/files/nutholder.stl");
+    color("black")translate([-25,-56,17])cube(32,center=true);
+    }
  //jeg tenker dobbel nema14 bowden lagt inn på skrå med peltier på heatbreaken og hotend som motvekt. Bremserør og domenut som vanlig  
 }
-module xvogn()color("yellow"){
-    difference(){
-        union(){
-    difference(){
-    translate([0,0,585])cube([30,24,20],center=true);  
-    translate([0,0,585])cube([31,16,11],center=true);
-        translate([0,13,585])rotate([-9,0,0])cylinder(30,3.5,3.5,center=true);
-            }
-    translate([-12,4,570])cube([6,15,12],center=true);    
-    translate([12,4,572])cube([6,15,9],center=true);  
-difference(){    
-    translate([0,4,575])cube([30,15,3],center=true);
-      translate([0,13,585])rotate([-9,0,0])cylinder(30,3.5,3.5,center=true);
-}
-    translate([25/2,0,585-5])rotate([-90,0,90])linear_extrude(25)igardin();
-translate([0,0,595])cylinder(7,8,6,center=true); 
-}
+module xvogn(){
+    color("yellow")difference(){
+        union(){    
+    translate([0,0,585])cube([35,24,20],center=true);         
+    translate([-0,7.75,563])cube([35,8.5,24],center=true);  
+    translate([0,0,595])cylinder(7,8,6,center=true); 
+                }
+         translate([-18.5,40,545])rotate([0,0,90])translate([+1,-28,30])rotate([0,90,0])cylinder(66,7,7,center=true);
+          translate([-32.2,20,530.9])rotate([0,0,90])translate([+1,-28,30])rotate([0,90,0])cylinder(126,1.5,1.5,center=true,$fn=14);  
+           translate([-32.2,0,530.9])rotate([0,0,90])translate([+1,-28,30])rotate([0,90,0])cylinder(10,3,3,center=true,$fn=6);  
+              translate([-15.2,20,535.9])rotate([0,0,90])translate([+1,-28,30])rotate([0,90,0])cylinder(126,1.5,1.5,center=true,$fn=14);  
+           translate([-15.2,0,535.9])rotate([0,0,90])translate([+1,-28,30])rotate([0,90,0])cylinder(10,3,3,center=true,$fn=6);      
+        translate([0,0,585])cube([36,16,11],center=true);
+        translate([0,-4.5,573.5])cube([36,16,9],center=true); 
+for(i=[-3:2:3]){
+translate([i*4,12.7,580-4.5])rotate([90,0,0])cylinder(2,2,2,center=true,$fn=6);
+    translate([i*4,-8,580-4.5])rotate([90,0,0])cylinder(50,1,1,center=true,$fn=12);
+    translate([i*4,12.7,580-25.5])rotate([90,0,0])cylinder(2,2,2,center=true,$fn=6);
+    translate([i*4,-8,580-25.5])rotate([90,0,0])cylinder(50,1,1,center=true,$fn=12);
+} 
   translate([0,0,595])smear(90);
+translate([0,0,595])smear(-90);
+}
+ 
+nema14();
+translate([0,0,561])beltholder();
+difference(){
+translate([35/2,0,585-5])rotate([-90,0,90])linear_extrude(35)igardin();
+
+    translate([0,0,595])smear(90);
 translate([0,0,595])smear(-90);
 }
 }
@@ -198,18 +256,24 @@ module yvogn()color("pink"){
             }
             translate([-232,-14,587])rotate([90,0,0])color("white")linear_extrude(2)text("West Side",4); 
             translate([209,-14,587])rotate([90,0,0])color("white")linear_extrude(2)text("East Side",4); 
+            translate([-227,-7,577])cylinder(20,0.5,1.2,center=true);
+            translate([226.6,-5,577])cylinder(20,0.5,1.2,center=true);
+            translate([-223,-11,557])cylinder(20,0.5,1.2,center=true);
+            translate([-214,11,557])cylinder(20,0.5,1.2,center=true);
+            translate([223,-11,557])cylinder(20,0.5,1.2,center=true);
+            translate([214,11,557])cylinder(20,0.5,1.2,center=true);
             minkowski(){
     xskinne();
              sphere(margin/2);   
             }
     translate([i*219,0,595])smear(180);
-    translate([i*224,0,593])rotate([0,30,-25])cylinder(55,0.3,2,center=true); 
-    translate([i*229,0,567+5])cube([4,50,8],center=true);
-    translate([i*229,0,567-5])cube([4,50,8],center=true);
-    translate([i*219,0,567+5])cube([4,50,8],center=true);        
-    translate([i*219,0,567-5])cube([4,50,8],center=true);
-    translate([i*209,0,567+5])cube([40,12,8],center=true);
-    translate([i*209,0,567-5])cube([40,12,8],center=true);
+    translate([i*224,0,593])rotate([0,30,-25])cylinder(35,0.3,2,center=true); 
+    translate([i*229,0,567+5])cube([4,50,beltroom],center=true);
+    translate([i*229,0,567-5])cube([4,50,beltroom],center=true);
+    translate([i*219,0,567+5])cube([4,50,beltroom],center=true);        
+    translate([i*219,0,567-5])cube([4,50,beltroom],center=true);
+    translate([i*209,0,567+5])cube([40,12,beltroom],center=true);
+    translate([i*209,0,567-5])cube([40,12,beltroom],center=true);
         lediggang();
     }
 }
@@ -224,19 +288,19 @@ module balkong(){
     color("black")translate([0,0,453])cube([420,430,8],center=true);
 }
 module lager(){
-    color("silver")difference(){cylinder(8,11,11,center=true);
-    cylinder(9,3.5,3.5,center=true);
+    color("silver")difference(){cylinder(1.9,21.3/2,21.3/2,center=true);
+    cylinder(9,2,2,center=true);
     }
     }
 module peis(){
     //Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting
         for(i=[-1:2:1]){
-   translate([i*18.5,-14,400])rotate([90,0,0])lager(); 
+   translate([i*18.2,-14,400])rotate([90,0,0])lager(); 
         color("cyan")difference(){union(){
-   translate([i*18.5,-14,400])rotate([90,0,0])cylinder(9,3.2,3.2,center=true);
-       translate([i*18.5,-14+7,400])rotate([90,0,0])sphere(5,$fn=12);
+   translate([i*18.2,-11,400])rotate([90,0,0])cylinder(3,3.2,3.2,center=true);
+       translate([i*18.2,-14+7,400])rotate([90,0,0])sphere(5,$fn=12);
          translate([0,24,446])rotate([00,0,0])sphere(5,$fn=12);   
-        translate([i*21/2,(-14+7)/2,410])rotate([140,0,80*i])cylinder(30,6,4,center=true,$fn=6);
+        translate([i*21/2,(-14+7)/2,410])rotate([140,0,80*i])cylinder(28,6,4,center=true,$fn=6);
        translate([13,-4,420+11])cylinder(12,8,8,center=true,$fn=16);
        color("cyan")translate([0,-21,407.5])rotate([0,0,180])linear_extrude(25)igardin();
     difference(){
@@ -246,7 +310,7 @@ module peis(){
         } 
             translate([i*18.5,-14,400])rotate([90,0,0])cylinder(15,2,2,center=true);
        translate([13,-4,420+15])smear(0);
-        translate([8,-3,420+15])rotate([0,45,45])cylinder(55,0.3,2,center=true); 
+        translate([8,-3,420+15])rotate([0,45,45])cylinder(55,0.3,1.9,center=true); 
         }
         color("red")translate([0,0,420+i*10])rotate([0,0,0])cylinder(7,7,7,center=true,$fn=6);
         }
