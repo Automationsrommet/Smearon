@@ -5,12 +5,14 @@
 margin=0.3;
 beltroom=9;
 //staver();
-heiser();
+//heiser();
 //sideplater();
 //framplate();
 //bakplate();
 //golv();
-translate([0,-223,0])rod();
+//translate([0,-223,0])rod();
+//muff();
+//peis();
 //translate([215,185,0])rotate([0,0,90])rod();
 //translate([-215,185,0])rotate([0,0,-90])rod();
 //balkong();
@@ -23,7 +25,7 @@ translate([0,-223,0])rod();
 //motorfeste();
 //lediggang();
 //ledigsneller();
-//reimhorn();
+reimhorn();
 //bakhorn();
 //ledighorn();
 //synkeskrue();6478+q   +452**_jk.l
@@ -85,7 +87,19 @@ module bakhorn (){
       translate([j*229,207,567+5*j])cube([4,50,beltroom],center=true);
       translate([j*220,207,567+5*j])cube([5,50,beltroom],center=true);
     translate([j*209,227+4,567+5*j])cube([40,15,beltroom],center=true);
-        ledighorn();  
+        
+      translate([0,227+4,0])rotate([0,0,180]){
+color("red")translate([5+220,-5,-5+567])cylinder(beltroom,11/2,11/2,center=true);
+color("red")translate([-5+220,+5,-5+567])cylinder(beltroom,11/2,11/2,center=true);
+color("red")translate([-5-220,-5,+5+567])cylinder(beltroom,11/2,11/2,center=true);
+color("red")translate([5-220,+5,+5+567])cylinder(beltroom,11/2,11/2,center=true);
+  
+      color("beige")translate([5-220,+5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      color("beige")translate([-5+220,+5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      color("beige")translate([5+220,-5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      color("beige")translate([-5-220,-5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      }
+      
      color("cyan")translate([i*198,238.5,567+5])rotate([-90,0,0])synkeskrue();
      color("cyan")translate([i*198,238.5,567-5])rotate([-90,0,0])synkeskrue();
     color("cyan")translate([i*230.5,210,567+5])rotate([0,90*i,0])synkeskrue();
@@ -95,8 +109,11 @@ module bakhorn (){
   }
   color("red")translate([i*236,231.5+6,567])cube([5,13,46],center=true);
 }
+
 }
-}    
+}
+
+//translate([0,227+4,0])rotate([0,0,180])lediggang(); 
 }
 module synkeskrue(){
     cylinder(20,2,2,center=false,$fn=20);
@@ -138,11 +155,10 @@ module reimhorn(){
 module ledigsneller(){
   for(i=[-1:2:1]){      
   for(j=[-1:2:1]){         
-        color("yellow")translate([220*i,-227,-5*j+567])difference(){
-          cylinder(8,11/2,11/2,center=true);
-          cylinder(9,4/2,4/2,center=true);
-      }
-      color("beige")translate([220*i,-227,5*j+567])cylinder(18,4/2,4/2,center=true,$fn=20);
+        color("yellow")translate([225*i,-227,-5*j+567])
+          cylinder(beltroom,11/2,11/2,center=true);
+     
+      color("beige")translate([225*i,-227,5*j+567])cylinder(18,4/2,4/2,center=true,$fn=20);
       }  
   }  
 }
@@ -164,12 +180,9 @@ module ledighorn(){
       translate([j*220,0,567+-5*j])cube([5,50,beltroom],center=true);
     translate([j*217,-21,567+-5*j])rotate([0,0,75*j])cube([40,16.3,beltroom],center=true);
     
-      translate([j*5+k*220,-5*j,-k*5+567])//difference(){
-          //ledigsneller();
+      translate([j*5+k*220,-5*j,-k*5+567])
         cylinder(beltroom,11/2,11/2,center=true);
-          //cylinder(9,4/2,4/2,center=true);
-      //}
-      color("beige")translate([j*5+220*k,-5*j,i*5+567])cylinder(78,4/2,4/2,center=true,$fn=20);
+        color("beige")translate([j*5+220*k,-5*j,i*5+567])cylinder(78,4/2,4/2,center=true,$fn=20);
 }
 }
 } 
@@ -293,41 +306,47 @@ module lager(){
     }
     }
 module peis(){
-    //Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting
+    
         for(i=[-1:2:1]){
-   translate([i*18.2,-14,400])rotate([90,0,0])lager(); 
-        color("cyan")difference(){union(){
+   //translate([i*18.2,-14,400])rotate([90,0,0])lager(); 
+        difference(){union(){
    translate([i*18.2,-11,400])rotate([90,0,0])cylinder(3,3.2,3.2,center=true);
        translate([i*18.2,-14+7,400])rotate([90,0,0])sphere(5,$fn=12);
          translate([0,24,446])rotate([00,0,0])sphere(5,$fn=12);   
         translate([i*21/2,(-14+7)/2,410])rotate([140,0,80*i])cylinder(28,6,4,center=true,$fn=6);
+             translate([0,14,435])rotate([-40,0,0])cylinder(30,6,4,center=true,$fn=6); 
        translate([13,-4,420+11])cylinder(12,8,8,center=true,$fn=16);
        color("cyan")translate([0,-21,407.5])rotate([0,0,180])linear_extrude(25)igardin();
-    difference(){
-    color("cyan")translate([0,0,420])cylinder(25,11,11,center=true,$fn=6);
-        translate([0,0,420])cylinder(27,4,4,center=true,$fn=14);
-    }     
-        } 
+    
+    translate([0,0,420])cylinder(25,11,11,center=true,$fn=6);
+           
+        }
+        union(){
+   translate([0,0,420+13])cylinder(11,7.6,7.6,center=true,$fn=6);
+   translate([0,0,420-11])cylinder(7,7.6,7.6,center=true,$fn=6);         
+       translate([0,0,420])cylinder(25,4.5,4.5,center=true);
             translate([i*18.5,-14,400])rotate([90,0,0])cylinder(15,2,2,center=true);
        translate([13,-4,420+15])smear(0);
         translate([8,-3,420+15])rotate([0,45,45])cylinder(55,0.3,1.9,center=true); 
+    }
+}
+        //color("yellow")translate([0,0,420+i*10])cylinder(7,7.4,7.4,center=true,$fn=6);
+    
         }
-        color("red")translate([0,0,420+i*10])rotate([0,0,0])cylinder(7,7,7,center=true,$fn=6);
-        }
-            translate([0,14,435])rotate([-40,0,0])cylinder(30,6,4,center=true,$fn=6); 
+      
 }
 
 module stangfeste(){
     difference(){
         union(){
-    translate([0,0,505])cube([65,42,5],center=true);
+    translate([0,-6,505])cube([65,30,5],center=true);
     for(h=[-1:2:1]){
        translate([60/2*h,0,505-10])cube([5,42,20],center=true); 
        translate([73/2*h,-42/2+2.5,505-8.75])cube([15,5,22.5],center=true); 
     }
 }
-translate([0,42+21,505-92])rotate([0,90,0])cylinder(70,99,99,center=true);
-cylinder(1400,3,3,center=true);
+translate([0,42+21,505-92])rotate([0,90,0])cylinder(70,107,107,center=true);
+cylinder(1400,4,4,center=true);
 translate([73/2+3,-42/2+2.5,505-8.75])rotate([90,0,0])cylinder(70,2,2,center=true);
 translate([-73/2-3,-42/2+5,505-8.75])rotate([90,0,0])cylinder(70,2,2,center=true);
 }
@@ -354,11 +373,23 @@ for(i=[-31/2:31:31/2]){
 }
 module rod(){
 motor();
-    color("pink")translate([0,0,65])cylinder(440,2.5,2.5,center=false);    
-    color("yellow")translate([0,0,42])cylinder(30,9,9,center=false);
+    color("pink")translate([0,0,65])cylinder(440,4,4,center=false);  
+    muff();
     motorfeste();
-    //stangfeste();
+   stangfeste();
     peis();
+}
+module muff(){
+  difference(){
+    color("yellow")translate([0,0,42])cylinder(13,9,9,center=false);
+    color("red")translate([0,0,49])cylinder(7,7.6,7.6,center=false,$fn=6);
+    color("yellow")translate([0,0,45])
+    for(i=[0:18:180]){
+    rotate([0,0,i])cube([13,1.2,6],center=true);
+        }
+    cylinder(48,6.1,6.1,center=false); 
+     color("pink")cylinder(440,4,4,center=false);   
+    }  
 }
 module motor(){
     difference(){
