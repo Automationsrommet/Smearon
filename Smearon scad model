@@ -1,14 +1,22 @@
 //Smearon 3 printer
-//marking the parts
-//Sjekk lager-dimensjoner og mutter dimensjoner før iverksetting #peis
-//An idea for standing out is to print from casette tapes instead of sd cards. With Amtor encoding. That would be awesome indeed. 
+//An idea for standing out is to print from casette tapes instead of sd cards. 
+//With Amtor encoding. That would be awesome indeed.
+
+//Input parameters
 margin=0.3;
 beltroom=9;
-//staver();
+width=600;
+depth=700;
+heigth=400;
+elevation=300;
+look="chocolate";
+
+//Modules: Unncomment to show parts. 
+staver();
 //heiser();
-//sideplater();
-//framplate();
-//bakplate();
+sideplater();
+framplate();
+bakplate();
 //golv();
 //translate([0,-223,0])rod();
 //muff();
@@ -25,7 +33,7 @@ beltroom=9;
 //motorfeste();
 //lediggang();
 //ledigsneller();
-reimhorn();
+//reimhorn();
 //bakhorn();
 //ledighorn();
 //synkeskrue();6478+q   +452**_jk.l
@@ -180,9 +188,16 @@ module ledighorn(){
       translate([j*220,0,567+-5*j])cube([5,50,beltroom],center=true);
     translate([j*217,-21,567+-5*j])rotate([0,0,75*j])cube([40,16.3,beltroom],center=true);
     
-      translate([j*5+k*220,-5*j,-k*5+567])
-        cylinder(beltroom,11/2,11/2,center=true);
-        color("beige")translate([j*5+220*k,-5*j,i*5+567])cylinder(78,4/2,4/2,center=true,$fn=20);
+color("red")translate([5+220,-5,-5+567])cylinder(beltroom,11/2,11/2,center=true);
+color("red")translate([-5+220,+5,-5+567])cylinder(beltroom,11/2,11/2,center=true);
+color("red")translate([-5-220,-5,+5+567])cylinder(beltroom,11/2,11/2,center=true);
+color("red")translate([5-220,+5,+5+567])cylinder(beltroom,11/2,11/2,center=true);
+        
+      color("beige")translate([5-220,+5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      color("beige")translate([-5+220,+5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      color("beige")translate([5+220,-5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+      color("beige")translate([-5-220,-5,5+560])cylinder(35,4/2,4/2,center=true,$fn=20);
+
 }
 }
 } 
@@ -411,7 +426,7 @@ module golv(){
 
 module bakplate(){
     difference(){   
-color("chocolate")translate([0,250,300])cube([490,12,600],center=true);
+color(look)translate([0,250,300])cube([490,12,600],center=true);
 translate([0,-20,250])rotate([90,0,0])cylinder(1000,190,190,center=true);
 translate([0,250,540])rotate([90,0,70])cylinder(1000,30,30,center=true);
 translate([0,250,540])rotate([90,0,-70])cylinder(1000,30,30,center=true); 
@@ -420,7 +435,7 @@ translate([0,250,540])rotate([90,0,-70])cylinder(1000,30,30,center=true);
 module framplate(){
     difference(){
    
-color("chocolate")translate([0,-250,300])cube([490,12,600],center=true);
+color(look)translate([0,-250,300])cube([490,12,600],center=true);
  for(i=[-1:2:1]){
 translate([i*125,-20,350])rotate([90,0,0])cylinder(1000,80,80,center=true);     
 translate([i*125,-20,140])rotate([90,0,0])cylinder(1000,80,80,center=true);
@@ -432,12 +447,15 @@ translate([0,-250,540])rotate([90,0,-80])cylinder(1000,30,30,center=true);
 module sideplater(){
     difference(){
     for(i=[-1:2:1]){
-color("chocolate")translate([i*242,0,300])cube([12,476,600],center=true);
+color(look)translate([i*(width/2-8),0,heigth/2])cube([12,depth-24,heigth],center=true);  
         }
-translate([0,-20,250])rotate([0,90,0])cylinder(1000,190,190,center=true);
-for(j=[-1:2:1]){
- translate([240*j,0,525])rotate([90,0,10])cylinder(1000,30,30,center=true);
-translate([240*j,0,525])rotate([90,0,-10])cylinder(1000,30,30,center=true);
+for(j=[-1:2:1]){ 
+    translate([(width/2-10)*j,0,heigth-heigth/7])rotate([0,90,0])
+    resize([heigth/7,depth/1.5,heigth/8])cylinder(width,heigth/10,heigth/10,center=true);
+    
+    translate([(width/2)*j,-30,heigth/2-heigth/8])rotate([0,90,0])
+    resize([heigth/2,depth/1.5,90])
+    cylinder(width*2,(heigth+depth)/8,(heigth+depth)/8,center=true);
 }
 }
 }
@@ -450,7 +468,7 @@ color("beige")translate([0,-243,40])rotate([0,0,180])linear_extrude(460)gardin()
 module staver(){
 for(i=[-1:2:1]){
     for(j=[-1:2:1]){
-color("silver")translate([i*250,j*250,0])rotate([0,0,90*i])linear_extrude(600)din();
+color("silver")translate([i*width/2,j*depth/2,0])rotate([0,0,90*i])linear_extrude(heigth)din();
     }
 }
 }
