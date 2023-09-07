@@ -5,9 +5,10 @@
 //Input parameters
 margin=0.3;
 beltroom=9;
-width=600;
-depth=700;
-heigth=400;
+width=500;
+depth=500;
+heigth=600;
+shell=12;
 elevation=300;
 look="chocolate";
 
@@ -17,7 +18,7 @@ staver();
 sideplater();
 framplate();
 bakplate();
-//golv();
+golv();
 //translate([0,-223,0])rod();
 //muff();
 //peis();
@@ -421,33 +422,33 @@ color("silver")cylinder(40,11,11,center=false);
     }
 }
 module golv(){
-    translate([0,0,-6])cube([500,530,12],center=true);
+    translate([0,0,-6])cube([width,depth+30,shell],center=true);
 }
 
 module bakplate(){
     difference(){   
-color(look)translate([0,250,300])cube([490,12,600],center=true);
-translate([0,-20,250])rotate([90,0,0])cylinder(1000,190,190,center=true);
-translate([0,250,540])rotate([90,0,70])cylinder(1000,30,30,center=true);
-translate([0,250,540])rotate([90,0,-70])cylinder(1000,30,30,center=true); 
+color(look)translate([0,depth/2,heigth/2])cube([width-10,shell,heigth],center=true);
+translate([0,depth/2,heigth/2-heigth/9])rotate([90,0,0])cylinder(2*shell,(heigth+width)/6,(heigth+width)/6,center=true);
+translate([0,depth/2,heigth-heigth/7])resize([depth/3,2*shell,heigth/7])rotate([90,0,0])cylinder(2*shell,30,30,center=true);
+        //NEMA 17 recessed hole here on both sides of flat hole
 }
 }
 module framplate(){
     difference(){
    
-color(look)translate([0,-250,300])cube([490,12,600],center=true);
+color(look)translate([0,-depth/2,heigth/2])cube([width-10,shell,heigth],center=true);
  for(i=[-1:2:1]){
-translate([i*125,-20,350])rotate([90,0,0])cylinder(1000,80,80,center=true);     
-translate([i*125,-20,140])rotate([90,0,0])cylinder(1000,80,80,center=true);
+translate([i*125,-20,heigth/2-heigth/8-heigth/6])rotate([90,0,0])cylinder(1000,heigth/8,heigth/8,center=true);     
+translate([i*125,-20,heigth/2-heigth/8+heigth/6])rotate([90,0,0])cylinder(1000,heigth/8,heigth/8,center=true);
 }
-translate([0,-250,540])rotate([90,0,80])cylinder(1000,30,30,center=true);
-translate([0,-250,540])rotate([90,0,-80])cylinder(1000,30,30,center=true);
+translate([0,-depth/2,heigth-heigth/7])rotate([90,0,0])resize([width/1.50,90,heigth/7])cylinder(1000,30,30,center=true);
+
 }
 }
 module sideplater(){
     difference(){
     for(i=[-1:2:1]){
-color(look)translate([i*(width/2-8),0,heigth/2])cube([12,depth-24,heigth],center=true);  
+color(look)translate([i*(width/2-8),0,heigth/2])cube([shell,depth-24,heigth],center=true);  
         }
 for(j=[-1:2:1]){ 
     translate([(width/2-10)*j,0,heigth-heigth/7])rotate([0,90,0])
